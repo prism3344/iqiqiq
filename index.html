@@ -1,0 +1,438 @@
+<html>
+    <head>
+        <style>
+            body {display: flex; flex-direction: column;}
+            h1 {color: aliceblue; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;}
+
+            button {background-color: aliceblue; border-radius: 25px; width: 100px;}
+
+            .reszta {display: none; flex-direction: column; width: auto; height: auto; gap: 10px; background-color: rgb(33, 33, 33, 0.5); border-radius: 25px; border: 5px solid aqua; justify-content: center; align-items: center;}
+
+            img {width: 300px; height: 300px;}
+
+            .odp {display: flex; gap: 10px;}
+        </style>
+    </head>
+
+    <body style="background-image: url(back.png); width: auto; height: auto;">
+        <center>
+            <h1>TEST IQ</h1>
+            <p id="num" style="color: aliceblue;"></p>
+
+            <div class="zadania" id="zadania">
+                <button onclick="pokaz()">gotów?</button>
+            </div>
+
+            <div class="reszta" id="reszta"> 
+
+            </div> 
+        </center>
+        
+        <script> //jak to czytasz i się dziwisz czemu to jest tak chujowo zrobione to nie dlatego, że jestem słabym programistą tylko dlatego, że mi się nie chciało, swoją drogą wejdź na tą stronę o 00:00/00:20 bo pojawi się coś specialnego pzdr
+            let counter = 0
+            let score = 0
+            let odps = []
+            let inptwo = false
+            let inpthree = false
+            let inp = false
+            let num = document.getElementById('num')
+            let reszta = document.getElementById('reszta');
+
+            num.textContent = `${counter}/10`
+
+            document.body.addEventListener('click', () => 
+            {
+                let num = document.getElementById('num')
+                num.textContent = `${counter}/10`
+            })
+
+            function bad(odpid)
+            {   
+                if (odps.includes(odpid) == false)
+                {
+                odps.push(odpid)
+                console.log(odps)
+                counter += 1
+                }
+
+
+                if (odps.includes(0) == true && odps.includes(1) == true)
+                {
+                    zad_3()
+                }
+
+
+            }
+            function add_score(odpid) {
+                if (odps.includes(odpid) == false)
+                {
+                    score += 10;
+                    odps.push(odpid)
+                    console.log(odps)
+                    counter += 1
+
+                }
+
+                if (odps.includes(0) == true && odps.includes(1) == true)
+                {
+                    zad_3()
+                }
+
+            }
+
+            let isnum = false
+            function number()
+            {
+                if(isnum == false)
+                {
+                    counter += 1
+                    score += 10
+
+                    isnum = false
+                }
+
+                zad6()
+            }
+
+            let lis = false
+            let ac = false
+            let acc = false
+
+            function zad10(isgood)
+            {
+                let val = document.getElementById('odpzad').value
+                if (isgood == true)
+                {
+                    if (val == '121')
+                    {
+                        score += 10
+                    }
+                }
+                counter += 1
+
+                reszta.innerHTML = `<h1>twój wynik w punktach(nie iq): ${score}</h1><h1>na analize IQ poczekaj tydzień</h1>`
+            }
+
+            function zad9p2()
+            {
+                reszta.innerHTML = '<h1>ILE TO 11x11 MASZ 5 SEKUND</h1> <input placeholder="odpowiedź" id="odpzad"> <button onclick=zad10(true)>zatwierdź</button>'
+                
+                setTimeout(() => {
+                    if (acc = false)
+                    {
+                        zad10(false)
+                    }
+                }, 5000);
+            }
+
+            function zad9(isgood)
+            {
+                if (isgood == true)
+                {
+                    score += 5
+                }
+                counter += 1
+
+                reszta.innerHTML = ''
+
+                zad9p2()
+            }
+
+            function zad8(isgood)
+            {
+                if (isgood == true)
+                {
+                    score += 5
+                }
+                counter += 1
+
+                reszta.innerHTML = '<img src="troj.png"> <button onclick=zad9(true)><img src="trojodp.png"></button> <button onclick="zad9(false)"><img src="trojb.png"></button> <button onclick="zad9(false)"><img src="trojba.png"></button> <button onclick="zad9(false)"><img src="trojbad.png"></button>'
+            }
+
+            function zad7(isgood)
+            {
+
+                ac = true
+
+                if (lis == false)
+                {
+                    counter += 1
+
+                    if (isgood == true)
+                    {
+                        score += 5
+                        
+                    }             
+
+                    lis = true
+                }
+
+
+                reszta.innerHTML = '<h1>jaki kształt wyjdzie z tej siatki?</h1><img src="ku.png" style="width: 300px; heigth: 300px;"/>  <button onclick="zad8(false)">graniastosłup trójkątno-kwadratowy</button> <button onclick="zad8(true)">graniastosłup trójkątny</button> <button onclick="zad8(false)">graniastosłup kwadratowy</button>'
+
+            }
+
+            function zad6()
+            {
+                isnum = true
+            
+
+                reszta.innerHTML = '<h1>MASZ 20 SEKUND</h1> <h1>z którego słowa nie można ułożyć słowa "listopad": </h1> <button onclick="zad7(false)">daptolis</button> <button onclick="zad7(false)">padotlis</button> <button onclick="zad7(true)">padolisd</button> <button onclick="zad7(false)">topadlis</button>'
+                counter += 1
+
+                setTimeout(() => {
+
+                    if (ac == false)
+                    {
+                    zad7(false)
+                    }
+                }, 20000);           
+            }
+
+            
+
+            function ciag()
+            {
+                reszta.innerHTML = '<h1>jakiej liczby brakuje w ciągu na miejsce _: </h1> <p style="color: aliceblue;">3, 8, _ , 18</p> <button onclick="zad6()">10</button> <button  onclick="zad6()">12</button> <button  onclick="zad6()">-14</button> <button onclick="number()">13</button>'
+                
+            }
+
+            function grosze()
+            {
+                let val = document.getElementById('grosz').value
+
+                if (inpthree == false)
+                {
+                    if (val == '5')
+                    {
+                        score += 10
+                    }
+                    counter += 1
+                    inpthree = true
+                }
+
+                //jeżeli dziwi cię ta odpowiedź to:
+                //x = cena piłki
+                //x + (x + 1 czyli cena pałki) = 1.10
+                //x + x = 10 bo odejmujemy 1 z każdej strony zgodnie z zasadami
+                //2x = 10
+                //x = 5
+
+
+                ciag()
+
+
+
+            }
+
+            function palka()
+            {
+                let reszta = document.getElementById('reszta');
+
+                reszta.innerHTML = '<h1>Pałka i piłka kosztują łącznie 1.10zł. Pałka kosztuje o 1.00zł więcej od piłki. Ile groszy kosztuje piłka> <p>*przy tym zadaniu dozwolone jest korzystanie z kartki</p> <input placeholder="ile groszy?" id="grosz"> <button onclick="grosze()">zatwierdź</button>'
+            }
+
+            function zdanie()
+            {
+                let wspak = document.getElementById('wspak').value
+
+                if (inptwo == false)
+                {
+                    if (wspak == 'radar i kajak ma ala')
+                    {
+                        score += 10
+                    }
+                    counter += 1    
+
+                    inptwo = true     
+                           
+                }
+
+                palka()
+
+
+            }
+
+            function parttwo()
+            {
+                let reszta = document.getElementById('reszta');
+                let kod = document.getElementById('kod').value 
+                if (inp == false)
+                {
+                    if (kod == '34289abc')
+                    {
+                        score += 10
+                        counter += 1
+                        console.log('uehweu')
+                    }
+                    else 
+                    {
+                        counter += 1
+                    }             
+                    inp = true
+                }
+
+                let html = '<h1>ZAPAMIĘTAJ I POWTÓRZ WSPAK</h1> <h1>ala ma kajak i radar</h1>'
+                reszta.innerHTML = html
+                setTimeout(() => {
+                    reszta.innerHTML = '<input placeholder="napisz zapamiętane zdanie wspak" id="wspak"/> <button onclick="zdanie()">zatwierdź</button>'
+                }, 3000);
+
+
+            }
+
+            function zad_3()
+            {
+                let reszta = document.getElementById('reszta');
+
+                console.log('zad3')
+
+                let html = `<input placeholder="tu wpisz zapamiętany wcześniej kod" id="kod" style="height: 80px; width: 500px"/>
+                <button onclick="parttwo()">zatwierdź</button>`
+
+                reszta.insertAdjacentHTML("beforeend", html)
+
+            }
+
+            function add_odp(name, normal, odpid) {
+                let reszta = document.getElementById('reszta');
+
+                if (odpid == 1)
+                {
+                    let html = `
+                        <h1>Którą opcje wstawisz w "?"</h1>
+                        <img src="${normal}">
+                        <div class="odp">
+                            <button style="width: auto; height: auto; border: 0px; border-radius: 0px;" onclick="bad(${odpid})">
+                                <img src="test1odpb.png">
+                            </button> 
+
+                            <button style="width: auto; height: auto; border: 0px; border-radius: 0px;" onclick="bad(${odpid})">
+                                <img src="test1odpba.png">
+                            </button> 
+
+                            <button style="width: auto; height: auto; border: 0px; border-radius: 0px;" onclick="add_score(${odpid})">
+                                <img src="${name}">
+                            </button> 
+
+                            <<button style="width: auto; height: auto; border: 0px; border-radius: 0px;" onclick="bad(${odpid})">
+                                <img src="test1odpbad.png">
+                            </button> 
+                        </div>`;
+
+                    reszta.insertAdjacentHTML('beforeend', html);    
+                }
+
+                else
+                {
+                let html = `
+                    <h1>Którą opcje wstawisz w "?"</h1>
+                    <img src="${normal}">
+                    <div class="odp">
+                        <button style="width: auto; height: auto; border: 0px; border-radius: 0px;" onclick="add_score(${odpid})">
+                            <img src="${name}">
+                        </button> 
+                        <button style="width: auto; height: auto; border: 0px; border-radius: 0px;"  onclick="bad(${odpid})">
+                            <img src="${name}" style="transform: rotate(-90deg)">
+                        </button> 
+                        <button style="width: auto; height: auto; border: 0px; border-radius: 0px;"  onclick="bad(${odpid})">
+                            <img src="${name}" style="transform: rotate(180deg)">
+                        </button> 
+                        <button style="width: auto; height: auto; border: 0px; border-radius: 0px;"  onclick="bad(${odpid})">
+                            <img src="${name}"style="transform: rotate(90deg)">
+                        </button>
+                    </div>`;
+
+                reszta.insertAdjacentHTML('beforeend', html);
+                }
+                
+
+            }
+            for(let i = 0; i < 2; i++)
+            {
+                add_odp(`test${i}odp.png`, `test${i}.png`, i);
+
+            }
+            function pokaz()
+            {
+                let rest = document.getElementById('reszta')
+                let zadania = document.getElementById('zadania')
+                zadania.innerHTML = '<h1>ZAPAMIĘTAJ TO:</h1>'
+                zadania.innerHTML += '<h1>34289abc</h1>'
+                setTimeout(() => {
+                    zadania.innerHTML = ''
+                    rest.style.display = 'flex'
+                }, (2000));
+            }
+
+        // ####################%@%%%%%#%##############*********++++++=--******-
+        // #####################@%%%%#%###############*************+++=--****--
+        // #####################%@%####%%%############****************+=--****-
+        // #####################%@%%%%%%%%%############****************+=--:*--
+        // ######################%@%%##%%%##############****************+=--*--
+        // ########################******#######%%%#####*********+*+****++=---:
+        // #####################*++++++*+*######%%%#%###****************+++=-**
+        // ####################*****+++**######%%%%%%%##*****+***++++**+++++=-*
+        // ###################**#%%%#****#####%%%#%%%%##*****++*++++++++++++=-*
+        // ################****#%%%%%%%######%%%##%%%###***+++++++++++++*++++-*
+        // ############*******%%%%%%%%%%%%%#%%%####%%##***+++++++++++++++++++=-
+        // #########**********%%%%%%##%%%%%%%%%##*#%###**++===++++++++++++++++=
+        // #####**************%%%%%#**##%%%%%%##**####***+======++++++++++++++-
+        // ##*****************%%####***##%%@%#**++*******+=========+++++++++++=
+        // *******************%%###**+++#%%##**+++++++++**+=========+++++++++++
+        // *******************%*=+++*+++*%#****++======+********++===++++++++++
+        // ******************#++*#+=-=*+##****+++========+*#####**++=++++++++++
+        // *******************+*+%=--+*##***+++++===--====+*####***++=++++++++=
+        // ******************%#**%++++##**+++++++==---=====+*******++==+++++++=
+        // *****************%%#######****++++++++==----====++******++++=+++++++
+        // ****************#%###%%%##**++++++++++==----====++++++++++++++++++++
+        // ************#*+###########**++++++++=+===-==-----=+++=++++++++++++++
+        // *********##+##*#######%%##**+++++++==++==-==----*:*====-+++++++++++=
+        // *******#+%#*=#####***#%%###**+++++===++======---:-**-===-+++++++++++
+        // ****#*##+*##*%%######%%%%###*+++++====++========----=--==-++++++++++
+        // *#+##*##*+#*%%%%%####%%%%###*+++++=====+==========-===--===+++++++++
+        // ##+##*+##+*#%%%%#####%%%%%#**+++++======+===========-----===++++++++
+        // ##+#***##*+%%%%%%####%%%%##**+++++=====++++=============-====+++++++
+        // ##+*#*++*#+%%%%%%%%##%+%%##*++**+++====+++++=================+++++++
+        // #**+#*#+#**%%%%%%%%##%+%%##*=-***+++====++++++==+++++=+==+++=+++++++
+        // #**+#*#+#*%%%%%%%%###%*+%##---:*#*++====++++++++++++++++++++++++++++
+        // =***#*#*=*%%%%%%%%#####%%%#+---::#*++====+++++++++++++++++++++++++++
+        // =#**+****#%%%%%%%#####%%%%%*+==::+#++===++++++++++++++++++++++++++++
+        // *#***#***#%%%%%%%####%#%%%%#*+=--+#*+===+++**********++++++++++++++=
+        // +=***=***%%%%%%%#####%#%%%%%#*++=*#*+-=++**************++++++++++++=
+        // *=***+***%%%%%%%###%###%%%%%*+++++++=-+**************++++++++++++++=
+        // **+**++*#%%%%%%###%######%%#*+========+**###*********++++++++++++++=
+        // **+#**+*%%%%%%%##%#######%%#*+=======+**#####********+++++++++++++==
+        // **+****+%%%%%%%%%#####**##%#*+======+++*######*******+++++++++++++==
+        // ***+****%%%%%%%%#####*+**###*+++=++++++*######*******+++++++++++++==
+        // **++***%%%%%%%%#%%####*+**#*+++++++++++*#######******++++++++++++===
+        // +**++**%%@%%%%%%%%%%%##****++++++++++++**######******+++++++++++===-
+        // =***+**%%%%%%#%%##%%%%%##**++++++++++++**######******+++++++++++===-
+        // =#**++%%%%%%%#%######%%#*****+++++++++++**#####******++++++++++====*
+        // +=***+%%%%%%##%##*######******++++++++++***###*******++++++++++====*
+        // ==****%%%%%%#*##**#++%######***+++++++++***####******+++++++++=====*
+        // +=+**#%%%%%%*+*+-***%%%%#####**+++++++++***#####****++++++++++====-*
+        // +++**%%%%%%#*+=---:=+=#%######**++++++++****###*****++++++++++====-*
+        // *+=**%%%%%%#**=--::=====+##**##****++********#******+++++++++=====**
+        // **++#%%%%%%###=-::-++==+==**+#*****+*********#******+++++++++=====**
+        // +**+%%%%%%%%%*+=-:-++=++==------#***##********#******+++++++=====-**
+        // *+*+%%%%%%%%#**+---=======-------=**#####*****#******+++++++=====-*.
+        // +**+%%%%%%%%#**+=-----====--------:+*#%##************+++++======--..
+        // =**#%%%%%%%%#**++===---==--------::*:#%##************+++++======-*..
+        // =+*%%%%%%%%###*++++======--------::::#%###*******++*++++++======-*..
+        // =+*%%%%%%%%%###***++++====------:*--+*%####******+**+++++======--...
+        // +=*%%%%%%%%%%#####***+++======---==++*#####*******+*++++++=====--...
+        // +=+%%%%%%%%%%%%%####**+++=========+++*######******++++++=+=====-*...
+        // ++=%%%%%%%%%%%%%%###***+++========+++*######*****++++++++======-*...
+        // +++%%%%##%%%%%%%%%###***++++=====++++*######****++++++++======--....
+        // *++%%%###%%%%%%%%%%####****+++===++++*#####****++++++++++=====-:*:**
+        // **+%%######%%%%%%########***++==+++++*#####****+++++++++=====--**...
+        // **+%%#######%%############***++++++++**####*****++++++++=====--.....
+        // +**%%###########*#########***+++++++***####******++++++=====--:.....
+
+
+
+        </script>
+    </body>
+
+</html>
